@@ -6,16 +6,6 @@ luaExitIfCall(true)
 tag = "guajineng"
 initLog(tag,1)
 
-mSleep(1000) -- 休息一会, 等音量调整的浮层消失
-
--- 输入配置
-ret,map,replica,level,buddy=showUI("{\"style\":\"default\",\"views\":[{\"type\":\"Label\",\"text\":\"TOSAutoScript\",\"size\":24,\"color\":\"0,0,255\"},{\"type\":\"RadioGroup\",\"list\":\"水,火,木,光,暗,主塔,遗迹,飞龙\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"副本1,副本2,副本3,副本4,副本5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"关卡1,关卡2,关卡3,关卡4,关卡5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"战友1,战友2,战友3,战友4,战友5\",\"select\":\"3\"}]}")
-
-if ret == 0 then
-    wLog(tag, ">>>退出")
-    lua_exit();
-end
-
 -- 地图的配置
 MAP = {}
 MAP[1] = {67, 477} -- 水
@@ -35,9 +25,27 @@ LEVEL[3] = {365, 607}
 LEVEL[4] = {346, 723}
 LEVEL[5] = {411, 859}
 
+-- 输入配置
+ret,map_n,replica_n,level_n,buddy_n=showUI("{\"style\":\"default\",\"views\":[{\"type\":\"Label\",\"text\":\"TOSAutoScript\",\"size\":24,\"color\":\"0,0,255\"},{\"type\":\"RadioGroup\",\"list\":\"水,火,木,光,暗,主塔,遗迹,飞龙\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"副本1,副本2,副本3,副本4,副本5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"关卡1,关卡2,关卡3,关卡4,关卡5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"战友1,战友2,战友3,战友4,战友5\",\"select\":\"3\"}]}")
 
-wLog(tag, "======= 新的开始 ======")
+if ret == 0 then
+    wLog(tag, ">>>退出")
+    lua_exit()
+end
 
+map_n = map_n + 1
+replica_n = replica_n + 1
+level_n = level_n + 1
+buddy_n = buddy_n + 1
+
+wLog(tag, "map_n: "..map_n..", replica_n: "..replica_n..", level_n: "..level_n..", buddy_n: "..buddy_n)
+
+map = MAP[map_n]
+replica = LEVEL[replica_n]
+level = LEVEL[level_n]
+buddy = LEVEL[buddy_n]
+
+mSleep(1500) -- 休息一会, 等浮层消失
 
 -- 点击指定按钮, 然后暂停 1.5 s
 function clickBtnAndSleep( x, y )
@@ -80,15 +88,14 @@ end
 -- 选择地图
 function selectMap( )
 
-    clickBtnAndSleep(MAP[map][1],MAP[map][2])
     wLog(tag, "[selectMap]选图")
-
-    clickBtnAndSleep(LEVEL[replica][1],LEVEL[replica][2])
+    clickBtnAndSleep(map[1],map[2])
+    
     wLog(tag, "[selectMap]选副本本")
+    clickBtnAndSleep(replica[1],replica[2])
 
-    clickBtnAndSleep(LEVEL[level][1],LEVEL[level][2])
     wLog(tag, "[selectMap]选关")
-
+    clickBtnAndSleep(level[1],level[2])
 
     wLog(tag, "[selectMap]选好关卡了")
 end
@@ -96,7 +103,7 @@ end
 -- 选择战友
 function selectFriend(  )
 
-    clickBtnAndSleep(LEVEL[buddy][1],LEVEL[buddy][2])
+    clickBtnAndSleep(buddy[1],buddy[2])
     wLog(tag, "[selectFriend]选择战友")  
 
     clickBtnAndSleep(259,629)
@@ -105,6 +112,8 @@ function selectFriend(  )
     clickBtnAndSleep(538,860)
     wLog(tag, "[selectFriend]开始战斗")
 end
+
+wLog(tag, "======= 新的开始 ======")
 
 -- 主流程开始
 while true do
@@ -128,7 +137,7 @@ while true do
             selectFriend()
             -- 这里之后就是自动转珠的自动打怪了
             break
-        else if findBuleBtnAndClick() == 1 then
+        elseif findBuleBtnAndClick() == 1 then
             -- 没有体力需要购买体力
             mSleep(500)
             -- 点击购买
@@ -158,7 +167,7 @@ while true do
         if isHome() == 1 then
             wLog(tag, "==>回到住地图啦, 退出无限点")
             break
-        else if findBuleBtnAndClick() == 1 then
+        elseif findBuleBtnAndClick() == 1 then
             wLog(tag, "==>点掉一个蓝色按钮, 是什么呢?")
         else
             clickBtnAndSleep(162, 162) 
