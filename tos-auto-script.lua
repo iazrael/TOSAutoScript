@@ -1,18 +1,19 @@
 -- 触动精灵的挂机脚本, 所有坐标都是在iphone5上的, 其他手机需要自行修改
 
+init("com.madhead.tos.zh","0")
+luaExitIfCall(true)
+
+tag = "guajineng"
+initLog(tag,1)
+
 mSleep(1000) -- 休息一会, 等音量调整的浮层消失
 
 -- 输入配置
-ret,map,replica,level,buddy=showUI("{\"style\":\"default\",\"views\":[{\"type\":\"Label\",\"text\":\"TOSAutoScript\",\"size\":24,\"color\":\"0,0,255\"},{\"type\":\"RadioGroup\",\"list\":\"水,火,木,光,暗,主塔,遗迹,飞龙\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"副本1,副本2,副本3,副本4,副本5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"关卡1,关卡2,关卡3,关卡4,关卡5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"战友1,战友2,战友3,战友4,战友5\",\"select\":\"0\"}]}")
+ret,map,replica,level,buddy=showUI("{\"style\":\"default\",\"views\":[{\"type\":\"Label\",\"text\":\"TOSAutoScript\",\"size\":24,\"color\":\"0,0,255\"},{\"type\":\"RadioGroup\",\"list\":\"水,火,木,光,暗,主塔,遗迹,飞龙\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"副本1,副本2,副本3,副本4,副本5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"关卡1,关卡2,关卡3,关卡4,关卡5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"战友1,战友2,战友3,战友4,战友5\",\"select\":\"3\"}]}")
 
 if ret == 0 then
+    wLog(tag, ">>>退出")
     lua_exit();
-else 
-    init("com.madhead.tos.zh","0")
-    luaExitIfCall(true)
-    
-    tag = "guajineng"
-    initLog(tag,1)
 end
 
 -- 地图的配置
