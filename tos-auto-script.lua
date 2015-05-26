@@ -1,20 +1,40 @@
 -- 触动精灵的挂机脚本, 所有坐标都是在iphone5上的, 其他手机需要自行修改
 
-init("com.madhead.tos.zh","0")
-luaExitIfCall(true)
-mSleep(1500) -- 休息一会, 等音量调整的浮层消失
+mSleep(1000) -- 休息一会, 等音量调整的浮层消失
 
-tag = "guajineng"
+-- 输入配置
+ret,map,replica,level,buddy=showUI("{\"style\":\"default\",\"views\":[{\"type\":\"Label\",\"text\":\"TOSAutoScript\",\"size\":24,\"color\":\"0,0,255\"},{\"type\":\"RadioGroup\",\"list\":\"水,火,木,光,暗,主塔,遗迹,飞龙\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"副本1,副本2,副本3,副本4,副本5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"关卡1,关卡2,关卡3,关卡4,关卡5\",\"select\":\"0\"},{\"type\":\"RadioGroup\",\"list\":\"战友1,战友2,战友3,战友4,战友5\",\"select\":\"0\"}]}")
+
+if ret == 0 then
+    lua_exit();
+else 
+    init("com.madhead.tos.zh","0")
+    luaExitIfCall(true)
+    
+    tag = "guajineng"
+    initLog(tag,1)
+end
 
 -- 地图的配置
 MAP = {}
-MAP[1] = {} -- 水
-MAP[1] = {} -- 水
-MAP[1] = {} -- 水
-MAP[1] = {} -- 水
-MAP[1] = {} -- 水
+MAP[1] = {67, 477} -- 水
+MAP[2] = {568,462} -- 火
+MAP[3] = {527,857} -- 木
+MAP[4] = {82,781} -- 光
+MAP[5] = {571,675} -- 暗
+MAP[6] = {321, 587} -- 主塔
+MAP[7] = {69,300} -- 遗迹
+MAP[8] = {536, 285} -- 飞龙
 
-initLog(tag,1)
+-- 关卡
+LEVEL = {}
+LEVEL[1] = {370, 365}
+LEVEL[2] = {356, 484}
+LEVEL[3] = {365, 607}
+LEVEL[4] = {346, 723}
+LEVEL[5] = {411, 859}
+
+
 wLog(tag, "======= 新的开始 ======")
 
 
@@ -56,41 +76,27 @@ function isFriendList(  )
     return 0
 end
 
--- 选择地图, TODO 这里可以优化下, 没空搞
+-- 选择地图
 function selectMap( )
-    -- 点击火本并选择关卡
-    -- clickBtnAndSleep(568,462)
 
-    -- 选暗本
-    clickBtnAndSleep(571,675)
-    wLog(tag, "[selectMap]选暗")
-    --        clickBtnAndSleep(527,857) - 木
+    clickBtnAndSleep(MAP[map][1],MAP[map][2])
+    wLog(tag, "[selectMap]选图")
 
-    clickBtnAndSleep(166,835)
-    wLog(tag, "[selectMap]选第一本")
+    clickBtnAndSleep(LEVEL[replica][1],LEVEL[replica][2])
+    wLog(tag, "[selectMap]选副本本")
 
-    --   clickBtnAndSleep(275, 722)
-    --     wLog(tag, "[selectMap]选第二本")
+    clickBtnAndSleep(LEVEL[level][1],LEVEL[level][2])
+    wLog(tag, "[selectMap]选关")
 
-    -- clickBtnAndSleep(273, 616)
-    -- wLog(tag, "[selectMap]选第三本")
-
-    clickBtnAndSleep(239,339)
-    wLog(tag, "[selectMap]选第第一关")
-
-    -- clickBtnAndSleep(264, 486)
-    -- wLog(tag, "[selectMap]选第第二关")
 
     wLog(tag, "[selectMap]选好关卡了")
 end
 
 -- 选择战友
 function selectFriend(  )
---    clickBtnAndSleep(342, 354)
---    wLog(tag, "[selectFriend]选择第一个战友")
 
-    clickBtnAndSleep(166,835)
-    wLog(tag, "[selectFriend]选择最下面的战友")  -- 可能会没有 
+    clickBtnAndSleep(LEVEL[buddy][1],LEVEL[buddy][2])
+    wLog(tag, "[selectFriend]选择战友")  
 
     clickBtnAndSleep(259,629)
     wLog(tag, "[selectFriend]确认选择")
