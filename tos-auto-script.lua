@@ -6,6 +6,14 @@ mSleep(1500) -- 休息一会, 等音量调整的浮层消失
 
 tag = "guajineng"
 
+-- 地图的配置
+MAP = {}
+MAP[1] = {} -- 水
+MAP[1] = {} -- 水
+MAP[1] = {} -- 水
+MAP[1] = {} -- 水
+MAP[1] = {} -- 水
+
 initLog(tag,1)
 wLog(tag, "======= 新的开始 ======")
 
@@ -105,14 +113,20 @@ while true do
         -- 等待网络IO等等
         mSleep(1000)
         wLog(tag, "==>等战友列表")
-        -- 判断到已经加载了战友列表了
-        if isFriendList() == 1 then
+        
+        if isFriendList() == 1 then -- 判断到已经加载了战友列表了
             -- 选择战友并进入战斗, 之后的事情交给转珠辅助
             -- 点战友
             mSleep(1500)
             selectFriend()
             -- 这里之后就是自动转珠的自动打怪了
             break
+        else if findBuleBtnAndClick() == 1 then
+            -- 没有体力需要购买体力
+            mSleep(500)
+            -- 点击购买
+            findBuleBtnAndClick()
+            wLog(tag, "==>补满体力啦")
         end
     end
 
