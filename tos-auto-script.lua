@@ -103,15 +103,15 @@ end
 
 -- 选择战友
 function selectFriend(  )
-
-    clickBtnAndSleep(buddy[1],buddy[2])
+    
     wLog(tag, "[selectFriend]选择战友")  
-
-    clickBtnAndSleep(259,629)
+    clickBtnAndSleep(buddy[1],buddy[2])
+    
     wLog(tag, "[selectFriend]确认选择")
-
-    clickBtnAndSleep(538,860)
+    clickBtnAndSleep(259,629)
+    
     wLog(tag, "[selectFriend]开始战斗")
+    clickBtnAndSleep(538,860)
 end
 
 wLog(tag, "======= 新的开始 ======")
@@ -134,7 +134,7 @@ while true do
         if isFriendList() == 1 then -- 判断到已经加载了战友列表了
             -- 选择战友并进入战斗, 之后的事情交给转珠辅助
             -- 点战友
-            mSleep(1500)
+            mSleep(1000)
             selectFriend()
             -- 这里之后就是自动转珠的自动打怪了
             break
@@ -142,8 +142,11 @@ while true do
             -- 没有体力需要购买体力
             mSleep(500)
             -- 点击购买
-            findBuleBtnAndClick()
-            wLog(tag, "==>补满体力啦")
+            if findBuleBtnAndClick() == 1 then
+                wLog(tag, "==>补满体力啦")
+            else
+                wLog(tag, "==>可能,也许点到其他按钮了...网络中断提示?")
+            end
         end
     end
 
@@ -171,8 +174,8 @@ while true do
         elseif findBuleBtnAndClick() == 1 then
             wLog(tag, "==>点掉一个蓝色按钮, 是什么呢?")
         else
-            clickBtnAndSleep(162, 162) 
             wLog(tag, "==>等结算，点啊点，点啊点")
+            clickBtnAndSleep(162, 162) 
         end
     end
 
