@@ -33,6 +33,7 @@ if ret == 0 then
     lua_exit()
 end
 
+-- lua的table下标从1开始
 map_n = map_n + 1
 replica_n = replica_n + 1
 level_n = level_n + 1
@@ -52,13 +53,13 @@ function clickBtnAndSleep( x, y )
     touchDown(1,x,y)
     mSleep(100)
     touchUp(1,x,y)
-    mSleep(1500)
+    mSleep(1000)
     wLog(tag, "[clickBtnAndSleep]点击, x="..x..",y="..y)
 end
 
 -- 找到一个蓝色的按钮, 然后点击它
 function findBuleBtnAndClick( ... )
-    x,y = findMultiColorInRegionFuzzy(0x082c39, "140|1|0x082839,12|34|0x104d63,107|34|0x10597b", 90, 36, 236, 588, 902)
+    x,y = findMultiColorInRegionFuzzy(0x082c39, "140|1|0x082839,12|34|0x104d63,107|34|0x10597b", 90, 36, 236, 600, 1050)
     wLog(tag, "[findBuleBtnAndClick]检查蓝色按钮, x="..x..",y="..y)
     if x ~= -1 and y ~= -1 then
         wLog(tag, "[findBuleBtnAndClick]haha, 点掉一个蓝色按钮")
