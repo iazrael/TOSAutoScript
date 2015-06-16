@@ -59,8 +59,8 @@ end
 
 -- 找到一个蓝色的按钮, 然后点击它
 function findBuleBtnAndClick( ... )
-    x,y = findMultiColorInRegionFuzzy(0x082c39, "140|1|0x082839,12|34|0x104d63,107|34|0x10597b", 90, 36, 236, 600, 1050)
-    wLog(tag, "[findBuleBtnAndClick]检查蓝色按钮, x="..x..",y="..y)
+    x,y = findMultiColorInRegionFuzzy(0x082c39, "140|1|0x082839,12|34|0x104d63,107|34|0x10597b", 90, 36, 236, 610, 1053)
+    -- wLog(tag, "[findBuleBtnAndClick]检查蓝色按钮, x="..x..",y="..y)
     if x ~= -1 and y ~= -1 then
         wLog(tag, "[findBuleBtnAndClick]haha, 点掉一个蓝色按钮")
         clickBtnAndSleep(x,y)
@@ -115,7 +115,7 @@ function selectFriend(  )
 end
 
 wLog(tag, "======= 新的开始 ======")
-
+buttleCount = 0
 -- 主流程开始
 while true do
     -- 等待其他操作, 战斗等
@@ -134,7 +134,7 @@ while true do
         if isFriendList() == 1 then -- 判断到已经加载了战友列表了
             -- 选择战友并进入战斗, 之后的事情交给转珠辅助
             -- 点战友
-            mSleep(1000)
+            mSleep(1500)
             selectFriend()
             -- 这里之后就是自动转珠的自动打怪了
             break
@@ -179,6 +179,7 @@ while true do
         end
     end
 
-    wLog(tag, "------------ 结束一个循环了 ------------")
+    buttleCount = buttleCount +1
+    wLog(tag, "------------ 结束一个循环了 -----第 "..buttleCount.." 次-------\n")
 
 end
