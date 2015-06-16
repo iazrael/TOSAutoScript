@@ -71,7 +71,7 @@ end
 
 -- 检查是否是主屏幕, 目前是仅仅判断屏幕上有没有火本或水本的那个像素
 function isHome( )
-    if getColor(519, 396)==0xc66d10 or getColor(39, 427)==0x849a9c then 
+    if getColor(519, 396)==0xc66d10 or getColor(39, 427)==0x849a9c then  
         return 1
     else 
         return 0
